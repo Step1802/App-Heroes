@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<h2>Todos Los Héroes</h2>
+
+<div>
+  <label>Nombre del Héroes:
+    <input #heroName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(heroName.value); heroName.value=''">
+    agregar
+  </button>
+</div>
+
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <a routerLink="/detail/{{hero.id}}">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </a>
+    
+     <button class="delete" type="button" (click)="openModal(template,hero)">X</button>
+     
+     <ng-template #template>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Alerta: Señor Funcionaro</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+         <span aria-hidden="true">&times;</span>
+       </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger" role="alert">
+                <p>Esta seguro que desea eliminar al Héroe <B>{{hero.name}} </B> .?</p> 
+              </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" title="delete hero" (click)="delete(hero, template)">Si</button>
+          <button type="button" class="btn btn-primary" (click)="modalRef.hide()">No</button>
+      </div>
+    </ng-template>
+    
+  </li>
+</ul>
+
